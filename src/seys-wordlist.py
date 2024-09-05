@@ -13,7 +13,7 @@ minor_color = (180, 180, 255)
 left_border_color = (255, 100, 100)
 left_border = 30 * pixel_per_mm
 row_width = pixel_per_mm * 8
-font_name = "Ready For Fall.ttf"
+font_name = "SimpleRonde-Regular.ttf"
 font_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "fonts", font_name)
 
 
@@ -26,8 +26,7 @@ def get_font_sized(max_height):
 
     while True :
         b = font.getbbox(text, anchor="ls")
-        print(b)
-
+        # box is (left, top, right, bottom), if anchor is "ls" (= left baseline) then it's the height of a capital "A"
         if abs(b[1]) > max_height:
             break
 
@@ -37,11 +36,13 @@ def get_font_sized(max_height):
     return ImageFont.truetype(font_path, font_size - step)
 
 
-
+# draws text on the image, line by line
 def draw_text(draw, text, x, y, font):
+    #the font is slightly too big, so we reduce the y position. Might be the provision for accented characters that getbox() accounts for. Why by THIS amount? I don't know.
+    y -= pixel_per_mm //2
     for t in text:
         draw.text((x, y), t, fill=(0,0,0), font=font, anchor="ls")
-        y += major_line_height
+        y += pixel_per_mm * 2 * 4
 
 
 
@@ -67,7 +68,7 @@ for i in range(0, major_line_height):
     for j in range(0, 3):
         draw.line([(0, y), (width, y)], fill=minor_color)
         y += line_spacing
-
+#final major line
 draw.line([(0, y), (width, y)], fill=major_color)
 
 
@@ -88,10 +89,9 @@ draw.line([(x, 0), (x, height)], fill=left_border_color)
 font = get_font_sized(pixel_per_mm * 2 * 3)
 y = major_line_height - major_line_offset
 x = left_border + 5
-#draw.text((x, y), "SEYS ceci est un exemple", fill=(0, 0, 0), font=font, anchor="ls")
 
-draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
+#draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
 
 # Save the image
-image.show()
+#image.show()
 image.save("seys-wordlist.png", dpi=(300, 300))

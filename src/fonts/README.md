@@ -3,3 +3,4 @@ Nice fonts found on https://www.1001fonts.com/ Credits to their respective owner
 
 
 - https://www.1001fonts.com/ready-for-fall-font.html
+- https://www.1001fonts.com/simpleronde-font.html
