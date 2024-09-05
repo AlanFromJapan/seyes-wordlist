@@ -1,10 +1,11 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
-# Define the image size and background color
-width = 800
+# Define the image size and background color (bigger size for better quality)
+quality_factor = 2
+width = 800 * quality_factor
 height = int(width * 1.4142)  # A4 paper aspect ratio
-pixel_per_mm = 4 #3.7795275591
+pixel_per_mm = 4 * quality_factor #3.7795275591
 background_color = (255, 255, 255)  # White
 major_line_height = int(height / (pixel_per_mm * 2 * 4))
 major_line_offset = 1
@@ -38,8 +39,6 @@ def get_font_sized(max_height):
 
 # draws text on the image, line by line
 def draw_text(draw, text, x, y, font):
-    #the font is slightly too big, so we reduce the y position. Might be the provision for accented characters that getbox() accounts for. Why by THIS amount? I don't know.
-    y -= pixel_per_mm //2
     for t in text:
         draw.text((x, y), t, fill=(0,0,0), font=font, anchor="ls")
         y += pixel_per_mm * 2 * 4
@@ -87,7 +86,7 @@ draw.line([(x, 0), (x, height)], fill=left_border_color)
 # Draw the text
 # gets the font to draw a capital letter that fits the height of 3 sublines = 6 mm
 font = get_font_sized(pixel_per_mm * 2 * 3)
-y = major_line_height + major_line_offset
+y = pixel_per_mm * 2 * 4 + major_line_offset
 x = left_border + 5
 
 draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
