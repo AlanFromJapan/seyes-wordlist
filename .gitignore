@@ -167,4 +167,6 @@ include/
 lib/
 lib64
 pyvenv.cfg
-seys-wordlist.png
+/seys-wordlist.png
+/test*.png
+
