@@ -3,7 +3,7 @@ import os
 
 # Define the image size and background color
 width = 800
-height = 1200
+height = int(width * 1.4142)  # A4 paper aspect ratio
 pixel_per_mm = 4 #3.7795275591
 background_color = (255, 255, 255)  # White
 major_line_height = int(height / (pixel_per_mm * 2 * 4))
@@ -87,11 +87,11 @@ draw.line([(x, 0), (x, height)], fill=left_border_color)
 # Draw the text
 # gets the font to draw a capital letter that fits the height of 3 sublines = 6 mm
 font = get_font_sized(pixel_per_mm * 2 * 3)
-y = major_line_height - major_line_offset
+y = major_line_height + major_line_offset
 x = left_border + 5
 
-#draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
+draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
 
 # Save the image
-#image.show()
+image.show()
 image.save("seys-wordlist.png", dpi=(300, 300))
