@@ -6,7 +6,8 @@ width = 800
 height = 1200
 pixel_per_mm = 4 #3.7795275591
 background_color = (255, 255, 255)  # White
-major_lines = int(height / (pixel_per_mm * 2 * 4))
+major_line_height = int(height / (pixel_per_mm * 2 * 4))
+major_line_offset = 1
 major_color = (100, 0, 150)
 minor_color = (180, 180, 255)
 left_border_color = (255, 100, 100)
@@ -24,16 +25,25 @@ def get_font_sized(max_height):
     font = ImageFont.truetype(font_path, font_size)
 
     while True :
-        b = font.getbbox(text)
+        b = font.getbbox(text, anchor="ls")
         print(b)
 
-        if b[1] > max_height:
+        if abs(b[1]) > max_height:
             break
 
         font_size += step
         font = ImageFont.truetype(font_path, font_size)
 
     return ImageFont.truetype(font_path, font_size - step)
+
+
+
+def draw_text(draw, text, x, y, font):
+    for t in text:
+        draw.text((x, y), t, fill=(0,0,0), font=font, anchor="ls")
+        y += major_line_height
+
+
 
 # Create a new image with the specified size and background color
 image = Image.new("RGB", (width, height), background_color)
@@ -47,8 +57,8 @@ line_color = (0, 0, 255)  # Blue
 # Draw horizontal lines
 #spacing of 2 mm
 line_spacing = pixel_per_mm * 2
-y = 1
-for i in range(0, major_lines):
+y = major_line_offset
+for i in range(0, major_line_height):
 
     draw.line([(0, y), (width, y)], fill=major_color)
 
@@ -75,8 +85,12 @@ draw.line([(x, 0), (x, height)], fill=left_border_color)
 
 # Draw the text
 # gets the font to draw a capital letter that fits the height of 3 sublines = 6 mm
-font = get_font_sized( 2 * 3)
-draw.text((left_border + 5, major_lines + pixel_per_mm*2), "SEYS ceci est un exemple", fill=(0, 0, 0), font=font, align="ls")
+font = get_font_sized(pixel_per_mm * 2 * 3)
+y = major_line_height - major_line_offset
+x = left_border + 5
+#draw.text((x, y), "SEYS ceci est un exemple", fill=(0, 0, 0), font=font, anchor="ls")
+
+draw_text(draw, ["il y a", "un jardin", "quatre", "du chocolat"], x, y, font)
 
 # Save the image
 image.show()
