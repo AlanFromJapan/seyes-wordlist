@@ -8,7 +8,7 @@ width = 800 * quality_factor
 height = int(width * 1.4142)  # A4 paper aspect ratio
 pixel_per_mm = 4 * quality_factor #3.7795275591
 background_color = (255, 255, 255)  # White
-major_line_height = int(height / (pixel_per_mm * 2 * 4))
+major_line_count = int(height / (pixel_per_mm * 2 * 4))
 major_line_offset = 1
 major_color = (100, 0, 150)
 minor_color = (180, 180, 255)
@@ -56,7 +56,7 @@ def generate_page(text_lines, path_to_save = None):
     #spacing of 2 mm
     line_spacing = pixel_per_mm * 2
     y = major_line_offset
-    for _ in range(0, major_line_height):
+    for _ in range(0, major_line_count):
 
         draw.line([(0, y), (width, y)], fill=major_color)
 

@@ -7,6 +7,11 @@ Call the script with a text file as parameter with words list, and it will gener
 
 The generated result is very close to good Seyes paper, very close to 8x8mm, but not perfect. Feel free to fork this project and scratch your itch.
 
+## Seyes paper?
+A [French thing apparently](https://en.wikipedia.org/wiki/Ruled_paper#France), a paper where major lines are split in 4 equal parts. Major line are 8 mm high, each of the sub-lines are 2mm high. You CAPS should be 3 sub-division high, your "t"s raise 2 (didn't remember that!), and your "g" -2 below.
+
+You can have also a left hand margin which I kept, and split the left side with vertical lines also 8mm wide, giving squares of 8x8mm.
+
 ## Dependencies
 - Pillow
 
