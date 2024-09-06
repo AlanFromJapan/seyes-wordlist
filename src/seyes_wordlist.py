@@ -45,7 +45,8 @@ def draw_text(draw, text, x, y, font):
         y += pixel_per_mm * 2 * 4
 
 
-def generate_page(text_lines, path_to_save = None):
+# generates a page with the given text lines
+def generate_page(text_lines, path_to_save = None, repeat=False):
     # Create a new image with the specified size and background color
     image = Image.new("RGB", (width, height), background_color)
 
@@ -87,7 +88,19 @@ def generate_page(text_lines, path_to_save = None):
     y = pixel_per_mm * 2 * 4 + major_line_offset
     x = left_border + 5
 
-    draw_text(draw, text_lines, x, y, font)
+    while True:
+        draw_text(draw, text_lines, x, y, font)
+        if not repeat:
+            break
+
+        #move to the next set of text y position + 1 line of blank space
+        y += (pixel_per_mm * 2 * 4) * (len(text_lines))
+
+        #enough room for another set of text?
+        if y + (pixel_per_mm * 2 * 4) * (len(text_lines)) > height:
+            break
+
+
 
     # Save the image
     if path_to_save is not None:
@@ -104,11 +117,15 @@ Usage: python3 seys_wordlist.py <path_to_file>
         """)
         exit(1)
     
-    if len(sys.argv) == 2:
+    if len(sys.argv) >= 2:
+        repeat = False
+        if len(sys.argv) >= 3:
+            repeat = str(sys.argv[2]).lower() == "repeat"
+
         with open(sys.argv[1], "r") as f:
             lines = f.readlines()
             lines = [l.strip() for l in lines]
-            generate_page(lines, sys.argv[1] + ".png")
+            generate_page(lines, sys.argv[1] + ".png", repeat)
 
 
     

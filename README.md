@@ -17,9 +17,9 @@ You can have also a left hand margin which I kept, and split the left side with 
 
 ## Usage
 ```bash
-python3 seys_wordlist.py <path_to_file>
+python3 seys_wordlist.py <path_to_file> [repeat]
 ```
-Generates a *path_to_file* **.png** image with the content you wanted.
+Generates a *path_to_file* **.png** image with the content you wanted. Add the parameter "repeat" to have the list written again if there's space left (all or nothing).
 
 ## Customization
 All the settings are in **seyes_wordlist.py** at the top.
