@@ -94,7 +94,7 @@ def generate_page(text_lines, path_to_save = None, repeat=False):
             break
 
         #move to the next set of text y position + 1 line of blank space
-        y += (pixel_per_mm * 2 * 4) * (len(text_lines))
+        y += (pixel_per_mm * 2 * 4) * (len(text_lines)+1)
 
         #enough room for another set of text?
         if y + (pixel_per_mm * 2 * 4) * (len(text_lines)) > height:
@@ -124,7 +124,7 @@ Usage: python3 seys_wordlist.py <path_to_file>
 
         with open(sys.argv[1], "r") as f:
             lines = f.readlines()
-            lines = [l.strip() for l in lines]
+            lines = [l.strip() for l in lines if l.strip() != ""]
             generate_page(lines, sys.argv[1] + ".png", repeat)
 
 
