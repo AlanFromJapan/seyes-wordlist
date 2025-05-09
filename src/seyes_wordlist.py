@@ -46,7 +46,7 @@ def draw_text(draw, text, x, y, font):
 
 
 # generates a page with the given text lines
-def generate_page(text_lines, path_to_save = None, repeat=False):
+def generate_page(text_lines, path_to_save = None, repeat=False, two_columns=False):
     # Create a new image with the specified size and background color
     image = Image.new("RGB", (width, height), background_color)
 
@@ -89,7 +89,12 @@ def generate_page(text_lines, path_to_save = None, repeat=False):
     x = left_border + 5
 
     while True:
-        draw_text(draw, text_lines, x, y, font)
+        if two_columns:
+            draw_text(draw, text_lines[:major_line_count], x, y, font)    
+            #second column is 11 rows to the right
+            draw_text(draw, text_lines[major_line_count:], x +row_width * 11, y, font)   
+        else:
+            draw_text(draw, text_lines, x, y, font)
         if not repeat:
             break
 

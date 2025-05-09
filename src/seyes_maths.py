@@ -96,6 +96,6 @@ Usage: python3 seys_maths.py output_file [repeat]
             output_file = output_file[:-4] + ".png"
 
         #generate 35 equations, with mostly addition and substraction (left 10% for division)
-        lines = generate_equations(count=35, weight_addition=35, weight_substraction=35, weight_multiplication=20)
+        lines = generate_equations(count=70, weight_addition=35, weight_substraction=35, weight_multiplication=20)
 
-        generate_page(lines, sys.argv[1] , repeat)
+        generate_page(lines, sys.argv[1] , repeat, two_columns=True)
