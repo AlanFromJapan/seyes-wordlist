@@ -18,7 +18,7 @@ def math_addition(max_number=100):
 
 
 def math_substraction(min_number=0, max_number=100):
-    a = random.randint(1, max_number)
+    a = random.randint(2, max_number)
     #dirty way to avoid x - x = 0 ... not very challenging
     b = a
     while b == a:
